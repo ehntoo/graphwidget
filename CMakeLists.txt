@@ -1,5 +1,5 @@
-include_directories(SYSTEM ${GTKMM_INCLUDE_DIRS} ${SIGCXX_INCLUDE_DIRS})
-link_directories(${GTKMM_LIBRARY_DIRS} ${SIGCXX_LIBRARY_DIRS})
+find_package(PkgConfig)
+pkg_check_modules(GTKMM REQUIRED IMPORTED_TARGET gtkmm-3.0)
 
 set(GRAPHWIDGET_SOURCES
 	Graph.cpp
@@ -7,7 +7,7 @@ set(GRAPHWIDGET_SOURCES
 
 add_library(graphwidget SHARED
 	${GRAPHWIDGET_SOURCES})
-target_link_libraries(graphwidget ${SIGCXX_LIBRARIES} ${GTKMM_LIBRARIES})
+target_link_libraries(graphwidget PkgConfig::GTKMM)
 
 target_include_directories(graphwidget
 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
